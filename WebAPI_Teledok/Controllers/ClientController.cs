@@ -33,10 +33,14 @@ namespace WebAPI_Teledok.Controllers
             }
             return await _context.Clients.ToListAsync();
         }
-
+        /// <summary>
+        /// Получение одного клиента
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         //GET BY ID Client
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetByID(int id)
+        public async Task<ActionResult<Client>> GetByID(int? id)
         {
             if(id == null)
             {
@@ -50,7 +54,11 @@ namespace WebAPI_Teledok.Controllers
             }
             return Ok(client);
         }
-
+        /// <summary>
+        /// Добавление клиента
+        /// </summary>
+        /// <param name="newClientDTO"></param>
+        /// <returns></returns>
         //POST Client
         [HttpPost]
         public async Task<ActionResult<Client>> Post (ClientDTO newClientDTO)
@@ -83,6 +91,12 @@ namespace WebAPI_Teledok.Controllers
             
         }
 
+        /// <summary>
+        /// Обновление данных клиента
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="clientDTO"></param>
+        /// <returns></returns>
         //PUT Client
         [HttpPut]
         public async Task<ActionResult> Put (int? id, ClientDTO clientDTO)
@@ -114,6 +128,11 @@ namespace WebAPI_Teledok.Controllers
             }
         }
 
+        /// <summary>
+        /// Удаление клиента
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         //DELETE Client
         [HttpDelete]
         public async Task<IActionResult> Delete(int? id)

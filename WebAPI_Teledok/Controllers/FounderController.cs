@@ -81,6 +81,15 @@ namespace WebAPI_Teledok.Controllers
                     ClientID = existingClient.IdClient,
                 };
 
+               if(existingClient.TypeOfClientID == 2)
+                {
+                    var founderClient = await _context.Founders.CountAsync(e => e.ClientID == existingClient.IdClient);
+
+                    if(founderClient >= 1) {
+                        return BadRequest("Невозможно добавить учредителя. Для индивидуальных предпринимателей должен быть только 1 учредитель.");
+                    }
+                }
+
                 _context.Founders.Add(founder);
                 await _context.SaveChangesAsync();
                 return CreatedAtAction("GetByID" , new {id = founder.IdFounder}, founder);
@@ -122,6 +131,16 @@ namespace WebAPI_Teledok.Controllers
                 founder.MiddleNameFounder = putFounderDTO.MiddleNameFounder;
                 founder.DateOfUpdateFounder = DateTime.Now;
                 founder.ClientID = existingClient.IdClient;
+
+                if (existingClient.TypeOfClientID == 2)
+                {
+                    var founderClient = await _context.Founders.CountAsync(e => e.ClientID == existingClient.IdClient);
+
+                    if (founderClient >= 1)
+                    {
+                        return BadRequest("Невозможно изменить учредителя. Для индивидуальных предпринимателей должен быть только 1 учредитель.");
+                    }
+                }
 
                 await _context.SaveChangesAsync();
                 return Ok(founder);
