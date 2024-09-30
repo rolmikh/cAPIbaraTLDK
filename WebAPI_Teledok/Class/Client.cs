@@ -1,4 +1,6 @@
-﻿namespace WebAPI_Teledok.Class
+﻿using System.Text.Json.Serialization;
+
+namespace WebAPI_Teledok.Class
 {
     public class Client
     {
@@ -9,8 +11,10 @@
         public DateTime? DateOfUpdateClient { get; set;}
         public int TypeOfClientID { get; set; }
 
+        [JsonIgnore]
         public TypeOfClient? TypeOfClient { get; set; }
-
+        
+        [JsonIgnore]
         public ICollection<Founder>? Founders { get; set; }
         
     }

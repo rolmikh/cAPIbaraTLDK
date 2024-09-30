@@ -1,4 +1,6 @@
-﻿namespace WebAPI_Teledok.Class
+﻿using System.Text.Json.Serialization;
+
+namespace WebAPI_Teledok.Class
 {
     public class TypeOfClient
     {

@@ -17,6 +17,7 @@ namespace WebAPI_Teledok.Controllers
             _context = context;
         }
 
+        // GET Type Of Client
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeOfClient>>> Get()
         {
@@ -24,7 +25,27 @@ namespace WebAPI_Teledok.Controllers
             {
                 return NotFound();
             }
+
             return await _context.TypeOfClients.ToListAsync();
+        }
+
+        //GET BY ID Type Of Client
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TypeOfClient>> GetByID(int id)
+        {
+            if(_context.TypeOfClients == null)
+            {
+                return NotFound();
+            }
+
+            var typeOfClient = await _context.TypeOfClients.FindAsync(id);
+
+            if(typeOfClient == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(typeOfClient);
         }
     }
 }
