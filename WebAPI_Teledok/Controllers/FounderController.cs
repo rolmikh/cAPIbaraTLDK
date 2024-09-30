@@ -89,6 +89,10 @@ namespace WebAPI_Teledok.Controllers
                         return BadRequest("Невозможно добавить учредителя. Для индивидуальных предпринимателей должен быть только 1 учредитель.");
                     }
                 }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
                 _context.Founders.Add(founder);
                 await _context.SaveChangesAsync();
@@ -140,6 +144,11 @@ namespace WebAPI_Teledok.Controllers
                     {
                         return BadRequest("Невозможно изменить учредителя. Для индивидуальных предпринимателей должен быть только 1 учредитель.");
                     }
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
                 }
 
                 await _context.SaveChangesAsync();

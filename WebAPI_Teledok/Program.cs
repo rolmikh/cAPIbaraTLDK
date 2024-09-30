@@ -1,11 +1,22 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using WebAPI_Teledok.Class;
+using WebAPI_Teledok.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => {
+        fv.RegisterValidatorsFromAssemblyContaining<FounderValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ClientValidator>();
+        });
+
+
+
 
 builder.Services.AddDbContext<Teledok_Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("con")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -80,6 +80,11 @@ namespace WebAPI_Teledok.Controllers
                     TypeOfClientID = newClientDTO.TypeOfClientID,
                 };
 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 _context.Clients.Add(client);
                 await _context.SaveChangesAsync();
                 return CreatedAtAction("GetByID", new { id = client.IdClient }, client);
@@ -119,6 +124,10 @@ namespace WebAPI_Teledok.Controllers
                 client.TypeOfClientID = existingType.IdTypeOfClient;
                 client.DateOfUpdateClient = DateTime.Now;
 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
                 await _context.SaveChangesAsync();
                 return Ok(client);
             }
